@@ -16,7 +16,7 @@ const { NotImplementedError } = require("../extensions/index.js");
  *
  */
 function renameFiles(arr) {
-  let arr1 = new Array();
+  let arr1 = [];
   for (let file in arr) {
     if (arr1.indexOf(arr[file]) > -1) {
       let index = 1;

@@ -23,38 +23,26 @@ const { NotImplementedError } = require("../extensions/index.js");
  *
  */
 function getDNSStats(domains) {
-  if (domains.length === 0) {
-    return {};
-  } else {
-    let newArr = domains.sort((a, b) => a.length - b.length).reverse();
-    let obj = {};
-
-    let secontDot = newArr[0].lastIndexOf(".");
-    let subStr1 = newArr[0].substring(secontDot);
-    let count = 0;
-    for (let i = 0; i < newArr.length; i++) {
-      if (newArr[i].indexOf(subStr1) != -1) {
+  let map = new Map();
+  for (let i = 0; i < domains.length; i++) {
+    let dns = domains[i].split(".");
+    let domain = "";
+    for (let j = dns.length - 1; j >= 0; j--) {
+      domain += "." + dns[j];
+      let count = map.get(domain);
+      if (count == null) {
+        count = 1;
+      } else {
         count++;
       }
+      map.set(domain, count);
     }
-
-    obj[`"${subStr1}"`] = count;
-
-    let firstDot = newArr[0].indexOf(".");
-    let subStr2 = newArr[0].substring(firstDot + 1, secontDot);
-    let count1 = 0;
-    for (let i = 0; i < newArr.length; i++) {
-      if (newArr[i].indexOf(subStr2) != -1) {
-        count1++;
-      }
-    }
-
-    obj[`"${subStr1}.${subStr2}"`] = count1;
-    let subStr3 = "." + newArr[0].substring(0, firstDot);
-    obj[`"${subStr1}.${subStr2}${subStr3}"`] = 1;
-
-    return obj;
   }
+  let obj = {};
+  for (let key of map.keys()) {
+    obj[`${key}`] = map.get(key);
+  }
+  return obj;
 }
 
 module.exports = {
