@@ -33,7 +33,11 @@ function repeater(str, options) {
       );
     } else {
       addStr = options["addition"] + "|";
-      subStr = str + addStr.repeat(`${options["additionRepeatTimes"]}`);
+      if ("additionRepeatTimes" in options) {
+        subStr = str + addStr.repeat(`${options["additionRepeatTimes"]}`);
+      } else {
+        subStr = str + addStr;
+      }
       newSubStr = subStr.substring(0, subStr.length - 1);
     }
   } else {
