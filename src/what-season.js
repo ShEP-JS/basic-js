@@ -13,6 +13,8 @@ const { NotImplementedError } = require("../extensions/index.js");
  */
 function getSeason(date) {
   let month = date.getMonth();
+  let str = "autumn,fall";
+  let resultAutumn = str.match(/autumn|fall/g);
   if (isNaN(Date.parse(date))) {
     throw new Error("Invalid date!");
   } else {
@@ -25,7 +27,7 @@ function getSeason(date) {
     if (month > 4 && month < 8) {
       return "summer";
     } else {
-      return "autumn";
+      return resultAutumn;
     }
   }
 }
