@@ -52,6 +52,9 @@ class VigenereCipheringMachine {
         code += text[i];
       }
     }
+    if (this.reverse === false) {
+      return code.split("").reverse().join("");
+    }
     return code;
   }
 
@@ -76,8 +79,13 @@ class VigenereCipheringMachine {
       } else {
         code += text[i];
       }
-      return code;
     }
+
+    if (this.reverse === false) {
+      return code.split("").reverse().join("");
+    }
+
+    return code;
   }
 }
 
